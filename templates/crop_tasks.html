@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}Tasks - {{ crop.name }}{% endblock %}
+{% block content %}
+<h2>Tasks for {{ crop.name }}</h2>
+
+<!-- Add Task -->
+<form method="POST" action="{{ url_for('add_task') }}" class="mb-4">
+  <input type="hidden" name="crop_id" value="{{ crop.id }}">
+  <div class="row g-2">
+    <div class="col-md-3">
+      <select name="task_type" class="form-control">
+        <option value="irrigation">Irrigation</option>
+        <option value="fertilizer">Fertilizer</option>
+        <option value="weeding">Weeding</option>
+        <option value="pest_mgmt">Pest Management</option>
+        <option value="special_ops">Special Ops</option>
+        <option value="harvest">Harvest</option>
+      </select>
+    </div>
+    <div class="col-md-2"><input type="number" name="day_offset" placeholder="Days after sowing" class="form-control" required></div>
+    <div class="col-md-4"><input type="text" name="notes" placeholder="Notes" class="form-control"></div>
+    <div class="col-md-3"><button class="btn btn-success">Add Task</button></div>
+  </div>
+</form>
+
+<!-- Task List -->
+<table class="table table-bordered">
+  <thead>
+    <tr><th>Type</th><th>Day Offset</th><th>Notes</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    {% for t in tasks %}
+    <tr>
+      <td>{{ t.task_type }}</td>
+      <td>{{ t.day_offset }}</td>
+      <td>{{ t.notes }}</td>
+      <td>
+        <a class="btn btn-sm btn-danger" href="{{ url_for('delete_task', task_id=t.id) }}">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="d-flex justify-content-center">
+  <a href="{{ url_for('admin_cal') }}" class="btn btn-secondary">Back</a>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Events on {{ date }}{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Events on {{ date }}</h2>
+
+  {% if custom_events or auto_events %}
+    <ul class="list-group">
+      {% for e in custom_events %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{ e['title'] }}</strong> (Custom)<br>
+            <small>{{ e['notes'] }}</small>
+          </div>
+          <a href="{{ url_for('delete_event', event_id=e['id']) }}" class="btn btn-danger btn-sm">Delete</a>
+        </li>
+      {% endfor %}
+
+      {% for e in auto_events %}
+        <li class="list-group-item">
+          <div>
+            <strong>{{ e['title'] }}</strong> (Auto)<br>
+            <small>{{ e['notes'] }}</small>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No events for this date.</p>
+  {% endif %}
+
+<a href="{{ url_for('home', date=date) }}" class="btn btn-secondary mt-3">Back</a>
+
+</div>
+{% endblock %}

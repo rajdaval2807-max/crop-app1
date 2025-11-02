@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Crops List{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="fw-bold text-dark mb-4 text-center">Available Crops</h2>
+
+  <div class="card shadow-lg border-0">
+    <div class="card-body">
+      <div class="list-group">
+        {% for crop in crops %}
+        <a href="{{ url_for('crop_detail', crop_id=crop[0]) }}" class="list-group-item list-group-item-action">
+          {{ crop[1] }}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4 text-center">
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">⬅ Back</a>
+  </div>
+</div>
+{% endblock %}

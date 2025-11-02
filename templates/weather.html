@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}Weather Forecast - Crop Recommendation System{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="text-center mb-4">Weather Forecast</h2>
+
+  <!-- Search Form -->
+  <form method="POST" action="{{ url_for('weather') }}" class="row g-3 justify-content-center mb-5">
+    <div class="col-md-6">
+      <input type="text" name="city" class="form-control" placeholder="Enter city name" required>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-success w-100">Search</button>
+    </div>
+  </form>
+
+  <!-- Current Weather (Main Card) -->
+  {% if current %}
+  <div id="main-card" class="card shadow-lg mb-5 border-0" style="background: #f8f9fa;">
+    <div class="card-body text-center">
+      <h4 id="main-city" class="card-title">{{ current.city }}</h4>
+      <p id="main-status" class="fs-5">Status: {{ current.status }}</p>
+      <p id="main-description">{{ current.description | capitalize }}</p>
+      <h2 id="main-temp" class="fw-bold">{{ current.temp }}°C</h2>
+      <p id="main-extra">Humidity: {{ current.humidity }}% | Wind: {{ current.wind }} m/s</p>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Forecast (Clickable Colorful Small Cards) -->
+  {% if forecast %}
+  <h3 class="mb-4 text-center">5-Day Forecast</h3>
+  <div class="row g-4">
+    {% for day in forecast %}
+    <div class="col-md-3 col-sm-6">
+      <div class="card forecast-card shadow-sm text-center p-3 h-100 border-0 cursor-pointer
+                  {% if loop.index == 1 %} bg-primary text-white
+                  {% elif loop.index == 2 %} bg-success text-white
+                  {% elif loop.index == 3 %} bg-warning text-dark
+                  {% elif loop.index == 4 %} bg-danger text-white
+                  {% elif loop.index == 5 %} bg-info text-dark
+                  {% elif loop.index == 6 %} bg-secondary text-white
+                  {% else %} bg-dark text-white
+                  {% endif %}"
+        data-date="{{ day.date }}"
+        data-temp="{{ day.temp }}"
+        data-humidity="{{ day.humidity }}"
+        data-wind="{{ day.wind }}"
+        data-status="{{ day.status }}"
+        data-description="{{ day.description }}"
+        data-city="{{ current.city }}">
+        
+        <h5>{{ day.date }}</h5>
+        <p>{{ day.status }}</p>
+        <small>{{ day.description | capitalize }}</small>
+        <h4 class="fw-bold">{{ day.temp }}°C</h4>
+        <small>Humidity: {{ day.humidity }}%</small><br>
+        <small>Wind: {{ day.wind }} m/s</small>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if not current and not forecast %}
+  <p class="text-center text-muted mt-5">Enter a city to see weather details.</p>
+  {% endif %}
+</div>
+
+<!-- JavaScript for interactive card switching -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const forecastCards = document.querySelectorAll(".forecast-card");
+  const mainCity = document.getElementById("main-city");
+  const mainStatus = document.getElementById("main-status");
+  const mainDescription = document.getElementById("main-description");
+  const mainTemp = document.getElementById("main-temp");
+  const mainExtra = document.getElementById("main-extra");
+
+  forecastCards.forEach(card => {
+    card.addEventListener("click", function() {
+      mainCity.textContent = this.dataset.city + " (" + this.dataset.date + ")";
+      mainStatus.textContent = "Status: " + this.dataset.status;
+      mainDescription.textContent = this.dataset.description.charAt(0).toUpperCase() + this.dataset.description.slice(1);
+      mainTemp.textContent = this.dataset.temp + "°C";
+      mainExtra.textContent = "Humidity: " + this.dataset.humidity + "% | Wind: " + this.dataset.wind + " m/s";
+    });
+  });
+});
+</script>
+<div class="mt-4 text-center">
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">⬅ Back</a>
+  </div>
+{% endblock %}

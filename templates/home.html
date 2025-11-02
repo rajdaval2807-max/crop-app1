@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="d-flex" style="height:80vh;">
+  <div style="flex:2; margin-right:10px; height:100%;">
+      <div id="calendar"></div>
+  </div>
+
+  <div style="flex:1;">
+    <a class="btn btn-success mb-3 w-100" href="{{ url_for('custom_events') }}">Create Custom Events</a>
+    <a class="btn btn-primary w-100" href="{{ url_for('auto_events') }}">Auto-generate Events</a>
+    <a class="btn btn-warning mt-3" href="{{ url_for('auto_events_list') }}">Manage Auto Events</a>
+
+  </div>
+</div>
+
+<!-- Pass events from backend to JS -->
+<script>
+  window.calendarEvents = {{ events | tojson | default('[]') | safe }};
+</script>
+<script src="{{ url_for('static', filename='calendar.js') }}"></script>
+<div class="mt-4 text-center">
+    <a href="{{ url_for('index') }}" class="btn btn-secondary">⬅ Back</a>
+  </div>
+{% endblock %}

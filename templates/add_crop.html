@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Add Crop{% endblock %}
+
+{% block extra_css %}
+<style>
+  body {
+    background-color: white !important;
+  }
+
+  .add-crop-hero {
+    min-height: 100vh;
+    background-color: white !important;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="add-crop-hero">
+  <div class="container">
+    <h2 class="fw-bold text-dark mb-4 text-center">Add New Crop</h2>
+
+    <form method="POST" class="p-4 border rounded shadow-sm bg-light">
+      <div class="mb-3">
+        <input type="text" name="name" class="form-control" placeholder="Crop Name" required>
+      </div>
+      <div class="mb-3">
+        <input type="text" name="scientific_name" class="form-control" placeholder="Scientific Name">
+      </div>
+      <div class="mb-3">
+        <input type="text" name="category" class="form-control" placeholder="Category">
+      </div>
+      <div class="mb-3">
+        <input type="text" name="best_season" class="form-control" placeholder="Best Season">
+      </div>
+      <div class="mb-3">
+        <textarea name="optimal_growing_conditions" class="form-control" placeholder="Optimal Growing Conditions"></textarea>
+      </div>
+      <div class="mb-3">
+        <input type="text" name="growth_duration" class="form-control" placeholder="Growth Duration">
+      </div>
+      <div class="mb-3">
+        <textarea name="growing_stages" class="form-control" placeholder="Growing Stages"></textarea>
+      </div>
+      <div class="mb-3">
+        <textarea name="pest_requirements" class="form-control" placeholder="Pest Requirements"></textarea>
+      </div>
+      <div class="mb-3">
+        <input type="text" name="water_required" class="form-control" placeholder="Water Required">
+      </div>
+      <div class="mb-3">
+        <textarea name="description" class="form-control" placeholder="Description"></textarea>
+      </div>
+      <div class="mb-3">
+        <input type="text" name="image_url" class="form-control" placeholder="Image URL">
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-success">Add Crop</button>
+        <a href="{{ url_for('manage_crops') }}" class="btn btn-secondary">Back</a>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

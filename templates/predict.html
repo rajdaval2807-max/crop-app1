@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Prediction - Crop Recommendation System{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+  <h2 class="text-center mb-4 fw-bold">Crop Prediction Form</h2>
+
+  <form action="/predict" method="POST" class="row g-3 shadow p-4 rounded bg-white needs-validation" novalidate>
+    <!-- Nitrogen -->
+    <div class="col-md-3">
+      <label class="form-label">Nitrogen (N)</label>
+      <input type="number" class="form-control" name="N" min="0" max="140" required>
+      <div class="invalid-feedback">Enter a value between 0 and 140.</div>
+    </div>
+
+    <!-- Phosphorus -->
+    <div class="col-md-3">
+      <label class="form-label">Phosphorus (P)</label>
+      <input type="number" class="form-control" name="P" min="0" max="145" required>
+      <div class="invalid-feedback">Enter a value between 0 and 145.</div>
+    </div>
+
+    <!-- Potassium -->
+    <div class="col-md-3">
+      <label class="form-label">Potassium (K)</label>
+      <input type="number" class="form-control" name="K" min="0" max="205" required>
+      <div class="invalid-feedback">Enter a value between 0 and 205.</div>
+    </div>
+
+    <!-- pH -->
+    <div class="col-md-3">
+      <label class="form-label">pH</label>
+      <input type="number" step="0.1" class="form-control" name="ph" min="0" max="14" required>
+      <div class="invalid-feedback">Soil pH should be between 0 and 14.</div>
+    </div>
+
+    <!-- Location (Text Input for City/District) -->
+    <div class="col-md-6">
+      <label class="form-label">Location (City/District in India)</label>
+      <input type="text" class="form-control" name="location" placeholder="Enter your city or district" required>
+      <div class="invalid-feedback">Please enter a valid city or district.</div>
+    </div>
+
+    <!-- Submit -->
+    <div class="col-12 text-center">
+      <button type="submit" class="btn btn-success px-5 py-2">Predict</button>
+    </div>
+  </form>
+
+  {% if result %}
+  <div class="alert alert-info text-center mt-4">
+    Predicted Crop: <strong>{{ result }}</strong><br>
+    <small>Avg Temp: {{ temperature }}°C | Humidity: {{ humidity }}% | Rainfall: {{ rainfall }} mm</small>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Bootstrap validation script -->
+<script>
+(function () {
+  'use strict';
+  var forms = document.querySelectorAll('.needs-validation');
+  Array.prototype.slice.call(forms).forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    }, false);
+  });
+})();
+</script>
+<div class="d-flex justify-content-center">
+  <a href="{{ url_for('index') }}" class="btn btn-secondary">Back</a>
+</div>
+{% endblock %}

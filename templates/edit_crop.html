@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Edit Crop{% endblock %}
+{% block content %}
+<h2>Edit Crop</h2>
+<form method="POST">
+  <input type="text" name="name" value="{{ crop.name }}" class="form-control mb-2" required>
+  <button class="btn btn-primary">Update Crop</button>
+</form>
+<div class="d-flex justify-content-center">
+  <a href="{{ url_for('admin_cal') }}" class="btn btn-secondary">Back</a>
+</div>
+{% endblock %}

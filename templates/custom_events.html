@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Custom Events{% endblock %}
+{% block content %}
+<h2>Add Custom Event</h2>
+<form method="POST">
+  <input type="text" name="title" placeholder="Event Title" class="form-control mb-2" required>
+  <input type="date" name="date" class="form-control mb-2" required>
+  <input type="text" name="notes" placeholder="Notes" class="form-control mb-2">
+  <button class="btn btn-success">Add Event</button>
+</form>
+
+<h3 class="mt-4">Existing Custom Events</h3>
+<table class="table table-bordered">
+  <thead><tr><th>Title</th><th>Date</th><th>Notes</th></tr></thead>
+  <tbody>
+    {% for e in events %}
+    <tr>
+      <td>{{ e.title }}</td>
+      <td>{{ e.date }}</td>
+      <td>{{ e.notes }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a href="{{ url_for('home') }}" class="btn btn-secondary mt-3">Back</a>
+
+{% endblock %}

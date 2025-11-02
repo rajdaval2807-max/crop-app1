@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Add Auto Events{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2>Generate Auto Events</h2>
+  <form method="POST" action="{{ url_for('auto_events') }}" class="mb-4">
+    <div class="form-group">
+      <label for="crop_name">Crop Name:</label>
+      <input type="text" id="crop_name" name="crop_name" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="sowing_date">Sowing Date:</label>
+      <input type="date" id="sowing_date" name="sowing_date" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success mt-2">Generate Events</button>
+  </form>
+  <a href="{{ url_for('home') }}" class="btn btn-secondary mt-3">Back</a>
+</div>
+{% endblock %}

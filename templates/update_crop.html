@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Update Crop{% endblock %}
+
+{% block extra_css %}
+<style>
+  body {
+    background-color: white !important;
+  }
+
+  .update-crop-hero {
+    min-height: 100vh;
+    background-color: white !important;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 0;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="update-crop-hero">
+  <div class="container">
+    <h2 class="fw-bold text-dark mb-4 text-center">Update Crop</h2>
+
+    <form method="POST" class="p-4 border rounded shadow-sm bg-light">
+      <div class="mb-3">
+        <label class="form-label">Crop Name</label>
+        <input type="text" name="name" class="form-control" value="{{ crop['name'] }}" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Scientific Name</label>
+        <input type="text" name="scientific_name" class="form-control" value="{{ crop['scientific_name'] }}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Category</label>
+        <input type="text" name="category" class="form-control" value="{{ crop['category'] }}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Best Season</label>
+        <input type="text" name="best_season" class="form-control" value="{{ crop['best_season'] }}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Optimal Growing Conditions</label>
+        <textarea name="optimal_growing_conditions" class="form-control">{{ crop['optimal_growing_conditions'] }}</textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Growth Duration</label>
+        <input type="text" name="growth_duration" class="form-control" value="{{ crop['growth_duration'] }}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Growing Stages</label>
+        <textarea name="growing_stages" class="form-control">{{ crop['growing_stages'] }}</textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Pest Requirements</label>
+        <textarea name="pest_requirements" class="form-control">{{ crop['pest_requirements'] }}</textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Water Required</label>
+        <input type="text" name="water_required" class="form-control" value="{{ crop['water_required'] }}">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="description" class="form-control">{{ crop['description'] }}</textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Image URL</label>
+        <input type="text" name="image_url" class="form-control" value="{{ crop['image_url'] }}">
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Update Crop</button>
+        <a href="{{ url_for('manage_crops') }}" class="btn btn-secondary">Back</a>
+      </div>
+    </form>
+  </div>
+</section>
+{% endblock %}

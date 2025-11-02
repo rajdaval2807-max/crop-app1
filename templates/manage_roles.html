@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Manage Roles{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="fw-bold text-center">Manage User Roles</h2>
+  <p class="text-muted text-center">Promote or demote users between Admin and User</p>
+
+  <div class="table-responsive mt-4">
+    <table class="table table-bordered text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Full Name</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Current Role</th>
+          <th>Change Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.fullname }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role }}</td>
+          <td>
+            <form method="POST" action="{{ url_for('manage_roles') }}">
+              <input type="hidden" name="user_id" value="{{ user.id }}">
+              <select name="role" class="form-select d-inline w-50">
+                <option value="user" {% if user.role == 'user' %}selected{% endif %}>User</option>
+                <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+              </select>
+              <button type="submit" class="btn btn-sm btn-primary">Update</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="d-flex justify-content-center">
+ <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Back</a>
+</div>
+{% endblock %}

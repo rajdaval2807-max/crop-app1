@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Admin{% endblock %}
+{% block content %}
+<h2 class="mb-4">Manage Crops</h2>
+
+<!-- Add Crop -->
+<form method="POST" action="{{ url_for('add_crop_cal') }}" class="mb-4">
+  <div class="row g-2">
+    <div class="col">
+      <input type="text" name="name" placeholder="Crop Name" class="form-control" required>
+    </div>
+    <div class="col">
+      <input type="text" name="sowing_start" placeholder="Start (MM-DD)" class="form-control" required>
+    </div>
+    <div class="col">
+      <input type="text" name="sowing_end" placeholder="End (MM-DD)" class="form-control" required>
+    </div>
+    <div class="col">
+      <button class="btn btn-success">Add Crop</button>
+    </div>
+  </div>
+</form>
+
+<!-- Crop List -->
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Sowing Start</th>
+      <th>Sowing End</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for crop in crops %}
+    <tr>
+      <td>{{ crop.name }}</td>
+      <td>{{ crop.sowing_start or '-' }}</td>
+      <td>{{ crop.sowing_end or '-' }}</td>
+      <td>
+        <a class="btn btn-sm btn-primary" href="{{ url_for('edit_crop_cal', crop_id=crop.id) }}">Edit</a>
+        <a class="btn btn-sm btn-warning" href="{{ url_for('crop_tasks', crop_id=crop.id) }}">Manage Crop Events</a>
+        <a class="btn btn-sm btn-danger" href="{{ url_for('delete_crop_cal', crop_id=crop.id) }}">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-center">
+  <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Back</a>
+</div>
+{% endblock %}

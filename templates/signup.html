@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Signup - Crop Recommendation System{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4 fw-bold">Create an Account</h2>
+    <form action="/signup" method="POST" class="row g-3 shadow p-4 rounded bg-white">
+        <div class="col-md-6">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" name="fullname" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" required>
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" required>
+        </div>
+        <div class="col-md-12">
+            <label class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" name="confirm_password" required>
+        </div>
+        <div class="col-12 text-center">
+            <button type="submit" class="btn btn-success px-5 py-2">Register</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Admin Panel{% endblock %}
+
+{% block extra_css %}
+<style>
+  body {
+    background-color: white !important;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container text-center">
+    <h1 class="fw-bold text-dark">Admin Dashboard</h1>
+    <p class="text-muted">Manage crops and users</p>
+
+    <div class="mt-4">
+      <a href="{{ url_for('manage_crops') }}" class="btn btn-success w-50 py-2 mb-3">Crop Manage</a><br>
+      <a href="{{ url_for('admin_cal') }}" class="btn btn-success w-50 py-2 mb-3">Event Manage</a><br>
+      <a href="{{ url_for('manage_roles') }}" class="btn btn-primary w-50 py-2 mb-3">Role Manage</a><br>
+      <a href="{{ url_for('logout') }}" class="btn btn-danger w-50 py-2">Logout</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
